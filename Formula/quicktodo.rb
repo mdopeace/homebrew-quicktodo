@@ -7,8 +7,8 @@ class Quicktodo < Formula
   depends_on :macos
 
   def install
-    # The zip contains quicktodo.app/ at root
-    # Use libexec to avoid sandbox issues, then symlink
+    # Extract zip manually to handle the quicktodo.app/ structure
+    system "unzip", "-q", cached_download, "-d", "."
     libexec.install "quicktodo.app"
     bin.install_symlink libexec/"quicktodo.app/Contents/MacOS/QuickTodo" => "quicktodo"
   end
