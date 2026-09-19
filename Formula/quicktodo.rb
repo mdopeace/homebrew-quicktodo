@@ -8,9 +8,9 @@ class Quicktodo < Formula
 
   def install
     # The zip contains quicktodo.app/ at root
-    # Homebrew extracts to staging dir, we need to find the app
-    app_path = Dir.glob("**/quicktodo.app").first
-    prefix.install app_path
+    # Use libexec to avoid sandbox issues, then symlink
+    libexec.install "quicktodo.app"
+    bin.install_symlink libexec/"quicktodo.app/Contents/MacOS/QuickTodo" => "quicktodo"
   end
 
   def caveats
@@ -22,6 +22,8 @@ class Quicktodo < Formula
         open "#{opt_prefix}/quicktodo.app"
 
       To add to /Applications, use "Check for Updates" in the app menu.
+
+      A `quicktodo` symlink is also available in #{opt_bin} for CLI access.
     EOS
   end
 
