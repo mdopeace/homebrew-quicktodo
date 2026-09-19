@@ -10,6 +10,8 @@ class Quicktodo < Formula
     # Extract zip manually to handle the quicktodo.app/ structure
     system "unzip", "-q", cached_download, "-d", "."
     libexec.install "quicktodo.app"
+    # Symlink for convenient launch
+    (prefix/"quicktodo.app").make_symlink libexec/"quicktodo.app"
     bin.install_symlink libexec/"quicktodo.app/Contents/MacOS/QuickTodo" => "quicktodo"
   end
 
