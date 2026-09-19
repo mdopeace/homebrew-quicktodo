@@ -7,10 +7,6 @@ class Quicktodo < Formula
   depends_on :macos
   depends_on :xcode => :build
 
-  # Swift Package Manager build fails in Homebrew sandbox
-  # Use exclusive sandbox access
-  sandbox :exclusive
-
   def install
     ENV.deparallelize
     system "./scripts/package.sh", "local"
