@@ -7,29 +7,23 @@ class Quicktodo < Formula
   depends_on :macos
 
   def install
-    # Extract zip manually to handle the quicktodo.app/ structure
-    system "unzip", "-q", cached_download, "-d", "."
     libexec.install "quicktodo.app"
-    # Symlink for convenient launch
-    (prefix/"quicktodo.app").make_symlink libexec/"quicktodo.app"
-    bin.install_symlink libexec/"quicktodo.app/Contents/MacOS/QuickTodo" => "quicktodo"
   end
 
   def caveats
     <<~EOS
       quicktodo.app installed to:
-        #{opt_prefix}/quicktodo.app
+        #{opt_libexec}/quicktodo.app
 
       To launch it:
-        open "#{opt_prefix}/quicktodo.app"
+        open "#{opt_libexec}/quicktodo.app"
 
-      To add to /Applications, use "Check for Updates" in the app menu.
-
-      A `quicktodo` symlink is also available in #{opt_bin} for CLI access.
+      To add to /Applications:
+        cp -R "#{opt_libexec}/quicktodo.app" /Applications/
     EOS
   end
 
   test do
-    assert_predicate opt_prefix/"quicktodo.app/Contents/MacOS/QuickTodo", :executable?
+    assert_predicate opt_libexec/"quicktodo.app/Contents/MacOS/QuickTodo", :executable?
   end
 end
