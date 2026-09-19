@@ -7,6 +7,8 @@ class Quicktodo < Formula
   depends_on :macos
 
   def install
+    # Extract zip manually to handle the quicktodo.app/ structure
+    system "unzip", "-q", cached_download, "-d", "."
     libexec.install "quicktodo.app"
   end
 
