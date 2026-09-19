@@ -7,7 +7,10 @@ class Quicktodo < Formula
   depends_on :macos
 
   def install
-    prefix.install "quicktodo.app"
+    # The zip contains quicktodo.app/ at root
+    # Homebrew extracts to staging dir, we need to find the app
+    app_path = Dir.glob("**/quicktodo.app").first
+    prefix.install app_path
   end
 
   def caveats
