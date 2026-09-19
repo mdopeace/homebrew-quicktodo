@@ -7,7 +7,12 @@ class Quicktodo < Formula
   depends_on :macos
   depends_on :xcode => :build
 
+  # Swift Package Manager build fails in Homebrew sandbox
+  # Use exclusive sandbox access
+  sandbox :exclusive
+
   def install
+    ENV.deparallelize
     system "./scripts/package.sh", "local"
     prefix.install "dist/quicktodo.app"
   end
@@ -17,7 +22,7 @@ class Quicktodo < Formula
       quicktodo.app installed to:
         #{opt_prefix}/quicktodo.app
 
-      To launch:
+      To launch it:
         open "#{opt_prefix}/quicktodo.app"
 
       To add to /Applications, use "Check for Updates" in the app menu.
