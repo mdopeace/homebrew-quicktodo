@@ -1,8 +1,8 @@
 class Quicktodo < Formula
   desc "Minimal menu-bar todo app for macOS"
   homepage "https://github.com/mdopeace/quicktodo"
-  url "https://github.com/mdopeace/quicktodo/releases/download/v1.1.1/quicktodo.app.zip"
-  sha256 "ed4a052fd2972f961c74326cc131025298e19c0b79ad1bd56d99dc8072c602cd"
+  url "https://github.com/mdopeace/quicktodo/releases/download/v1.1.2/quicktodo.app.zip"
+  sha256 "11b09277f409164d8168df32996112c8d16aaaf17fb25e27760c63746de05c9f"
 
   depends_on :macos
 
@@ -15,13 +15,13 @@ class Quicktodo < Formula
   def caveats
     <<~EOS
       quicktodo.app installed to:
-        #{opt_libexec}/quicktodo.app
+        \#{opt_libexec}/quicktodo.app
 
       To launch it:
-        open "#{opt_libexec}/quicktodo.app"
+        open "\#{opt_libexec}/quicktodo.app"
 
       To add to /Applications:
-        cp -R "#{opt_libexec}/quicktodo.app" /Applications/
+        cp -R "\#{opt_libexec}/quicktodo.app" /Applications/
     EOS
   end
 
