@@ -1,16 +1,13 @@
 class Quicktodo < Formula
   desc "Minimal menu-bar todo app for macOS"
   homepage "https://github.com/mdopeace/quicktodo"
-  url "https://github.com/mdopeace/quicktodo/archive/refs/tags/v1.0.6.tar.gz"
-  sha256 "c704b79ab6e2d40f0ad5765f974f8e99f7687781d53b7e102ab95adba51a4ed9"
+  url "https://github.com/mdopeace/quicktodo/releases/download/v1.0.6/quicktodo.app.zip"
+  sha256 "df1127c69f25b385f3cf96e1f6a6d00239888a07b5d25ef34bc0437308ec08f1"
 
   depends_on :macos
-  depends_on :xcode => :build
 
   def install
-    ENV.deparallelize
-    system "./scripts/package.sh", "local"
-    prefix.install "dist/quicktodo.app"
+    prefix.install "quicktodo.app"
   end
 
   def caveats
