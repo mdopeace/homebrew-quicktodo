@@ -1,8 +1,8 @@
 class Quicktodo < Formula
   desc "Minimal menu-bar todo app for macOS"
   homepage "https://github.com/mdopeace/quicktodo"
-  url "https://github.com/mdopeace/quicktodo/releases/download/v1.4.5/quicktodo.app.zip"
-  sha256 "c62d3290c728d644fb2cd7ed036a526f308711be52485add2ecc2af6d6f8d8f3"
+  url "https://github.com/mdopeace/quicktodo/releases/download/v1.4.6/quicktodo.app.zip"
+  sha256 "131f1d83f77756acb368d4161bd1618d2f3d71af210a34281ba9906ab6b03ae9"
 
   depends_on :macos
 
