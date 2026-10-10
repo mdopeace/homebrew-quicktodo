@@ -9,7 +9,7 @@ cask "quicktodo" do
   desc "Minimal menu-bar todo app"
   homepage "https://github.com/mdopeace/quicktodo"
 
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   app "quicktodo.app"
 
