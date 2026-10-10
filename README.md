@@ -36,6 +36,24 @@ rolls the app back if the tap hasn't published that version yet, so check
 Your todos live in `~/Library/Application Support/QuickTodo/todos.json`, outside
 both `/Applications` and Homebrew's Caskroom, so they survive reinstalls.
 
+## Migrating from the formula
+
+Earlier versions shipped a formula, which installed the app under `opt/` and
+asked you to copy it into `/Applications` by hand. The tap now ships a cask.
+
+On Homebrew 5.0.6+ `brew update` migrates the formula to the cask for you. It
+fails if a copy is already sitting in `/Applications` — exactly what the old
+manual step left behind — so remove it first:
+
+```sh
+rm -rf /Applications/quicktodo.app
+brew uninstall quicktodo
+brew install --cask quicktodo
+```
+
+Your todos live in `~/Library/Application Support/QuickTodo/todos.json`, outside
+everything above, so none of this touches them.
+
 ## In a Brewfile
 
 ```ruby
