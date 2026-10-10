@@ -7,41 +7,45 @@ menu-bar todo app for macOS.
 
 ```sh
 brew tap mdopeace/quicktodo
-brew install quicktodo
+brew install --cask quicktodo
 ```
 
-After install, launch the Homebrew-managed app with:
+This installs `quicktodo.app` into `/Applications`. The `--cask` flag is
+optional — plain `brew install quicktodo` finds it too.
+
+There is no manual copy step: a cask writes to `/Applications` directly, which a
+formula cannot (formula installs run in a sandbox under `opt/`).
+
+## Updating
 
 ```sh
-open "$(brew --prefix)/opt/quicktodo/quicktodo.app"
+brew update && brew upgrade quicktodo
 ```
 
-To copy the app into `/Applications`, replacing the existing `quicktodo.app` there:
+quicktodo also updates itself. It checks for a new
+[release](https://github.com/mdopeace/quicktodo/releases) on launch and when you
+open the menu (menu-open checks are limited to once every 4 hours); the footer
+button can also trigger a manual check.
 
-```sh
-cp -R "$(brew --prefix)/opt/quicktodo/quicktodo.app" /Applications/
-```
+Both routes install the same build. Homebrew keeps its own record of the
+installed version, so if you update from inside the app, run
+`brew reinstall --cask quicktodo` once to resync it.
 
-The Homebrew formula cannot perform this copy itself because formula
-installation runs in a sandbox. You can also use quicktodo's **Check for Updates**
-command to install a release into `/Applications`.
-
-Homebrew upgrades update the managed bundle under `opt/quicktodo/quicktodo.app`.
-
-> **Note:** this tap installs a **formula**, so the command is `brew install quicktodo`
-> (no `--cask`). A pre-built, notarized cask is not currently provided.
+Your todos live in `~/Library/Application Support/QuickTodo/todos.json`, outside
+both `/Applications` and Homebrew's Caskroom, so they survive reinstalls.
 
 ## In a Brewfile
 
 ```ruby
 tap "mdopeace/quicktodo"
-brew "quicktodo"
+cask "quicktodo"
 ```
 
-## Updating
+## Maintaining
 
-When a new [quicktodo release](https://github.com/mdopeace/quicktodo/releases) is tagged, bump
-the `version`/`url`/`sha256` in `Formula/quicktodo.rb`.
+`version`/`url`/`sha256` in `Cask/quicktodo.rb` are updated automatically by
+`scripts/release.sh` in the [app repo](https://github.com/mdopeace/quicktodo) on
+every tagged release, so they normally need no hand-editing.
 
 ## Contributing
 
