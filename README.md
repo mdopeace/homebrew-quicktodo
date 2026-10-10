@@ -7,41 +7,65 @@ menu-bar todo app for macOS.
 
 ```sh
 brew tap mdopeace/quicktodo
-brew install quicktodo
+brew install --cask quicktodo
 ```
 
-After install, launch the Homebrew-managed app with:
+This installs `quicktodo.app` into `/Applications`. The `--cask` flag is
+optional — plain `brew install quicktodo` finds it too.
+
+There is no manual copy step: a cask writes to `/Applications` directly, which a
+formula cannot (formula installs run in a sandbox under `opt/`).
+
+## Updating
 
 ```sh
-open "$(brew --prefix)/opt/quicktodo/quicktodo.app"
+brew update && brew upgrade quicktodo
 ```
 
-To copy the app into `/Applications`, replacing the existing `quicktodo.app` there:
+quicktodo also updates itself. It checks for a new
+[release](https://github.com/mdopeace/quicktodo/releases) on launch and when you
+open the menu (menu-open checks are limited to once every 4 hours); the footer
+button can also trigger a manual check.
+
+Both routes install the same build. Homebrew keeps its own record of the
+installed version, so that record can fall out of step with an in-app update.
+`brew reinstall --cask quicktodo` re-points it at the tap's version — which
+rolls the app back if the tap hasn't published that version yet, so check
+`brew info --cask quicktodo` first if you just updated in-app.
+
+Your todos live in `~/Library/Application Support/QuickTodo/todos.json`, outside
+both `/Applications` and Homebrew's Caskroom, so they survive reinstalls.
+
+## Migrating from the formula
+
+Earlier versions shipped a formula, which installed the app under `opt/` and
+asked you to copy it into `/Applications` by hand. The tap now ships a cask.
+
+On Homebrew 5.0.6+ `brew update` migrates the formula to the cask for you. It
+fails if a copy is already sitting in `/Applications` — exactly what the old
+manual step left behind — so remove it first:
 
 ```sh
-cp -R "$(brew --prefix)/opt/quicktodo/quicktodo.app" /Applications/
+rm -rf /Applications/quicktodo.app
+brew uninstall quicktodo
+brew install --cask quicktodo
 ```
 
-The Homebrew formula cannot perform this copy itself because formula
-installation runs in a sandbox. You can also use quicktodo's **Check for Updates**
-command to install a release into `/Applications`.
-
-Homebrew upgrades update the managed bundle under `opt/quicktodo/quicktodo.app`.
-
-> **Note:** this tap installs a **formula**, so the command is `brew install quicktodo`
-> (no `--cask`). A pre-built, notarized cask is not currently provided.
+Your todos live in `~/Library/Application Support/QuickTodo/todos.json`, outside
+everything above, so none of this touches them.
 
 ## In a Brewfile
 
 ```ruby
 tap "mdopeace/quicktodo"
-brew "quicktodo"
+cask "quicktodo"
 ```
 
-## Updating
+## Maintaining
 
-When a new [quicktodo release](https://github.com/mdopeace/quicktodo/releases) is tagged, bump
-the `version`/`url`/`sha256` in `Formula/quicktodo.rb`.
+`version`/`url`/`sha256` in `Cask/quicktodo.rb` are updated automatically by
+`scripts/release.sh` in the [app repo](https://github.com/mdopeace/quicktodo) on
+every tagged release, so they normally need no hand-editing.
 
 ## Contributing
 
