@@ -28,8 +28,10 @@ open the menu (menu-open checks are limited to once every 4 hours); the footer
 button can also trigger a manual check.
 
 Both routes install the same build. Homebrew keeps its own record of the
-installed version, so if you update from inside the app, run
-`brew reinstall --cask quicktodo` once to resync it.
+installed version, so that record can fall out of step with an in-app update.
+`brew reinstall --cask quicktodo` re-points it at the tap's version — which
+rolls the app back if the tap hasn't published that version yet, so check
+`brew info --cask quicktodo` first if you just updated in-app.
 
 Your todos live in `~/Library/Application Support/QuickTodo/todos.json`, outside
 both `/Applications` and Homebrew's Caskroom, so they survive reinstalls.
