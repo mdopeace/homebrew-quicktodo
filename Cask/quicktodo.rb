@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 cask "quicktodo" do
   version "1.9.0"
   sha256 "52a0ec6c3c48aaf7c7121ca67397a8f4c857d3f5436550859521161a159858c8"
