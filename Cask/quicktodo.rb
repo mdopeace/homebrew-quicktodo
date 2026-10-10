@@ -13,8 +13,5 @@ cask "quicktodo" do
 
   app "quicktodo.app"
 
-  # No `auto_updates true` on purpose: that stanza excludes the cask from
-  # `brew upgrade` and defers to the app's own updater. We want brew to upgrade
-  # it as well. The tap is bumped in lockstep with every release, so both paths
-  # converge on the same version.
+  # No `auto_updates true` — that would make `brew upgrade` skip this app.
 end
