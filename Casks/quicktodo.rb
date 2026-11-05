@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 cask "quicktodo" do
-  version "1.13.0"
-  sha256 "8807435bf73d4c93cbc4fbb485525b7c062f4c3b37e9a5502b1301c2b812300a"
+  version "1.14.0"
+  sha256 "edf785e30aab3b9a38dba3df83dbef324dccd22c536ff1ee5ea987cceb6ddef5"
 
   url "https://github.com/mdopeace/quicktodo/releases/download/v#{version}/quicktodo.app.zip"
   name "QuickTodo"
